@@ -1,4 +1,5 @@
 # 开发时间：2023/12/13 8:10
+#动态分区管理
 import pandas as pd
 pd.set_option('display.max_colwidth', 20)
 
