@@ -1,0 +1,5 @@
+PRINTFTK printf
+LPARENT (
+STRCON hello world
+RPARENT )
+SEMICN ;
