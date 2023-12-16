@@ -70,13 +70,14 @@ def show():     #输出内存和进程处理状态表
 def allocation(i,j):
     global in_memorys
     global processes
-    processes[i].state = 1      #状态设置为被分配存储空间
-    processes[i].address = in_memorys[j].address
-    if processes[i].size == in_memorys[j].size:     #size相等的情况下删除此空闲块
-        del in_memorys[j]
-    else:
-        in_memorys[j].address += processes[i].size
-        in_memorys[j].size -= processes[i].size
+    if processes[i].state == 0:
+        processes[i].state = 1  # 状态设置为被分配存储空间
+        processes[i].address = in_memorys[j].address
+        if processes[i].size == in_memorys[j].size:  # size相等的情况下删除此空闲块
+            del in_memorys[j]
+        else:
+            in_memorys[j].address += processes[i].size
+            in_memorys[j].size -= processes[i].size
 
 def merge_memory_blocks(memory_blocks):
     # 按地址排序内存块
@@ -206,6 +207,8 @@ if __name__ == '__main__':
               "2.worst fit algorithm\n"
               "3.best fit algorithm\n"
               "4.show\n"
+              "5.insert new in_memory\n"
+              "6.insert new process\n"
               "please choose the option\n")
         choice = int(input())
         if choice == 1:
@@ -216,5 +219,25 @@ if __name__ == '__main__':
             b_fa()
         elif choice == 4:
             show()
+        elif choice ==5:
+            print("请以“大小 首址”的格式依次添加内存空闲区\n")
+            while (True):
+                line = input()
+                if line != "":
+                    values = line.split(" ")
+                    in_memory = In_memory(values[0], values[1])
+                    in_memorys.append(in_memory)
+                else:
+                    break
+        elif choice==6:
+            print("请以“进程名 进程所需内存大小”的格式依次添加进程\n")
+            while (True):
+                line = input()
+                if line != "":
+                    values = line.split(" ")
+                    process = Process(values[0], 0, values[1])
+                    processes.append(process)
+                else:
+                    break
         else:
             break
